@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>A NOT TEAM</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="styleguide.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="icon.png" type="image/x-icon">
+</head>
+<body class="bg-gradient">
+
+  <!-- Fixed left sidebar strip -->
+  <div class="sidebar-strip">
+    <div class="sidebar-progress"></div>
+    <div class="sidebar-dots">
+      <div class="sidebar-dot" data-section="0"></div>
+      <div class="sidebar-dot" data-section="1"></div>
+      <div class="sidebar-dot" data-section="2"></div>
+      <div class="sidebar-dot" data-section="3"></div>
+    </div>
+  </div>
+
+  <!-- Fixed top navbar -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">A NOT TEAM</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Главная</a>
+        <a href="launcher.html" class="nav-link">Лаунчер</a>
+        <a href="library.html" class="nav-link">Библиотека</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="servers.html" class="nav-link">Сервера</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main-content">
+
+    <!-- HERO -->
+    <section class="section hero-section" id="hero">
+      <div class="glass-card hero-card">
+        <div class="hero-badge">Minecraft Studio</div>
+        <h1 class="hero-title">A NOT TEAM</h1>
+        <p class="hero-desc">Студия по созданию карт, модов, датапаков и многого другого в Minecraft. Также у нас есть дочерний проект&#160;A NOT REALMS!</p>
+        <a href="launcher.html" class="btn-download">
+          <span class="btn-icon">⬇</span>
+          Скачать лаунчер
+        </a>
+      </div>
+    </section>
+
+    <!-- MINI SERVERS -->
+    <section class="section" id="servers-preview">
+      <div class="section-header">
+        <span class="section-tag">Сервера</span>
+        <h2 class="section-title">A NOT REALMS</h2>
+        <a href="servers.html" class="section-more">Все сервера →</a>
+      </div>
+      <div class="cards-row">
+        <div class="glass-card server-card">
+          <div class="server-status online"></div>
+          <div class="server-info">
+            <h3 class="server-name">Survival</h3>
+            <p class="server-ip">play.anotteam.com</p>
+          </div>
+          <div class="server-players"><span class="players-count">12</span><span class="players-label">онлайн</span></div>
+        </div>
+        <div class="glass-card server-card">
+          <div class="server-status online"></div>
+          <div class="server-info">
+            <h3 class="server-name">Creative</h3>
+            <p class="server-ip">creative.anotteam.com</p>
+          </div>
+          <div class="server-players"><span class="players-count">5</span><span class="players-label">онлайн</span></div>
+        </div>
+        <div class="glass-card server-card">
+          <div class="server-status offline"></div>
+          <div class="server-info">
+            <h3 class="server-name">Mini-games</h3>
+            <p class="server-ip">mini.anotteam.com</p>
+          </div>
+          <div class="server-players"><span class="players-count">—</span><span class="players-label">скоро</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section class="section" id="about">
+      <div class="section-header">
+        <span class="section-tag">О нас</span>
+        <h2 class="section-title">Кто мы такие</h2>
+      </div>
+      <div class="about-grid">
+        <div class="glass-card about-card">
+          <div class="about-icon">🗺️</div>
+          <h3 class="about-card-title">Карты</h3>
+          <p class="about-card-desc">Создаём уникальные авторские карты для одиночной и многопользовательской игры с проработанными механиками.</p>
+        </div>
+        <div class="glass-card about-card">
+          <div class="about-icon">⚙️</div>
+          <h3 class="about-card-title">Моды и датапаки</h3>
+          <p class="about-card-desc">Разрабатываем модификации и датапаки, расширяющие стандартный Minecraft без лишних зависимостей.</p>
+        </div>
+        <div class="glass-card about-card">
+          <div class="about-icon">🌐</div>
+          <h3 class="about-card-title">Сообщество</h3>
+          <p class="about-card-desc">Наши сервера A NOT REALMS объединяют игроков: уникальный геймплей и дружелюбная атмосфера.</p>
+        </div>
+        <div class="glass-card about-card about-card--wide">
+          <div class="about-icon">✨</div>
+          <h3 class="about-card-title">Наша миссия</h3>
+          <p class="about-card-desc">Мы делаем Minecraft интереснее — каждый проект студии рождается из любви к игре и желания удивить игроков чем-то новым. Присоединяйся!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2024 – 2026 A NOT TEAM</span>
+        <span class="footer-email">support@anotteam.com</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const dots = document.querySelectorAll('.sidebar-dot');
+    const progress = document.querySelector('.sidebar-progress');
+
+    function onScroll() {
+      const scrolled = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+      progress.style.height = (scrolled * 100) + '%';
+
+      let current = 0;
+      sections.forEach((sec, i) => {
+        if (sec.getBoundingClientRect().top <= window.innerHeight * 0.55) current = i;
+      });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

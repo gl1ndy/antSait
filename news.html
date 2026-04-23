@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>Новости — A NOT TEAM</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="styleguide.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-neutral">
+
+  <div class="sidebar-strip">
+    <div class="sidebar-progress"></div>
+    <div class="sidebar-dots">
+      <div class="sidebar-dot active"></div>
+      <div class="sidebar-dot"></div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">A NOT TEAM</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="launcher.html" class="nav-link">Лаунчер</a>
+        <a href="library.html" class="nav-link">Библиотека</a>
+        <a href="news.html" class="nav-link active">Новости</a>
+        <a href="servers.html" class="nav-link">Сервера</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <section class="section hero-section" id="news-hero">
+      <div class="glass-card" style="padding:64px 72px;text-align:center">
+        <div class="hero-badge">Обновления</div>
+        <h1 class="hero-title" style="font-size:64px">Новости</h1>
+        <p class="hero-desc">Следите за анонсами, обновлениями и событиями на серверах A NOT REALMS.</p>
+      </div>
+    </section>
+
+    <section class="section" id="news-list">
+      <div class="section-header">
+        <span class="section-tag">Последнее</span>
+        <h2 class="section-title">Последние записи</h2>
+      </div>
+      <div class="news-list">
+        <div class="glass-card news-item">
+          <div class="news-date">23 апреля 2026</div>
+          <h3 class="news-title">Обновление лаунчера до версии 2.0</h3>
+          <p class="news-desc">Полный редизайн интерфейса, поддержка Fabric 0.15 и автоматическая синхронизация модпаков студии.</p>
+        </div>
+        <div class="glass-card news-item">
+          <div class="news-date">10 апреля 2026</div>
+          <h3 class="news-title">Открытие сервера Survival</h3>
+          <p class="news-desc">Запустили новый сервер выживания на A NOT REALMS. Авторские механики, уникальный мир и события каждую неделю.</p>
+        </div>
+        <div class="glass-card news-item">
+          <div class="news-date">1 марта 2026</div>
+          <h3 class="news-title">Новая карта: Вулканический архипелаг</h3>
+          <p class="news-desc">Выпустили карту для выживания с авторскими боссами, паркуром и уникальной системой крафта.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2024 – 2026 A NOT TEAM</span>
+        <span class="footer-email">support@anotteam.com</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const dots = document.querySelectorAll('.sidebar-dot');
+    const progress = document.querySelector('.sidebar-progress');
+    function onScroll() {
+      const scrolled = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+      progress.style.height = (scrolled * 100) + '%';
+      let current = 0;
+      sections.forEach((sec, i) => { if (sec.getBoundingClientRect().top <= window.innerHeight * 0.55) current = i; });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

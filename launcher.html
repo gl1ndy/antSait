@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>Лаунчер — A NOT TEAM</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="styleguide.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-neutral">
+
+  <div class="sidebar-strip">
+    <div class="sidebar-progress"></div>
+    <div class="sidebar-dots">
+      <div class="sidebar-dot active"></div>
+      <div class="sidebar-dot"></div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">A NOT TEAM</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="launcher.html" class="nav-link active">Лаунчер</a>
+        <a href="library.html" class="nav-link">Библиотека</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="servers.html" class="nav-link">Сервера</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <section class="section hero-section" id="launcher-hero">
+      <div class="glass-card hero-card" style="text-align:center">
+        <div class="hero-badge">v2.0</div>
+        <h1 class="hero-title" style="font-size:64px">Лаунчер</h1>
+        <p class="hero-desc">Запускай Minecraft с уже установленными модами и картами от студии. Никакой ручной настройки — всё готово.</p>
+        <a href="#" class="btn-download">
+          <span class="btn-icon">⬇</span>
+          Скачать для Windows
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="launcher-features">
+      <div class="section-header">
+        <span class="section-tag">Возможности</span>
+        <h2 class="section-title">Что умеет лаунчер</h2>
+      </div>
+      <div class="cards-row">
+        <div class="glass-card mini-card">
+          <div class="mini-card-icon">🚀</div>
+          <h3 class="mini-card-title">Быстрый старт</h3>
+          <p class="mini-card-desc">Устанавливается за пару кликов. Первый запуск игры — за минуту.</p>
+        </div>
+        <div class="glass-card mini-card">
+          <div class="mini-card-icon">🔄</div>
+          <h3 class="mini-card-title">Авто-обновления</h3>
+          <p class="mini-card-desc">Лаунчер сам обновляет моды и карты студии до последней версии.</p>
+        </div>
+        <div class="glass-card mini-card">
+          <div class="mini-card-icon">🎮</div>
+          <h3 class="mini-card-title">Все версии</h3>
+          <p class="mini-card-desc">Поддержка всех актуальных версий Minecraft, включая Fabric и Forge.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2024 – 2026 A NOT TEAM</span>
+        <span class="footer-email">support@anotteam.com</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    const sections = document.querySelectorAll('.section');
+    const dots = document.querySelectorAll('.sidebar-dot');
+    const progress = document.querySelector('.sidebar-progress');
+    function onScroll() {
+      const scrolled = window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight);
+      progress.style.height = (scrolled * 100) + '%';
+      let current = 0;
+      sections.forEach((sec, i) => { if (sec.getBoundingClientRect().top <= window.innerHeight * 0.55) current = i; });
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
+</body>
+</html>

@@ -1,0 +1,520 @@
+/* ============================================================
+   BASE
+   ============================================================ */
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: #f5f0e8;
+  min-height: 100vh;
+  font-family: "Inter", Helvetica, sans-serif;
+  color: #1a1a1a;
+}
+
+body.bg-gradient {
+  background: linear-gradient(160deg, #ffffff 0%, #ffe08a 55%, #ffb600 100%);
+  background-attachment: fixed;
+}
+
+body.bg-neutral {
+  background: #f7f4ee;
+}
+
+/* ============================================================
+   SIDEBAR STRIP
+   ============================================================ */
+.sidebar-strip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 14px;
+  height: 100vh;
+  z-index: 200;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  border-right: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 2px 0 20px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.sidebar-progress {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 0%;
+  background: linear-gradient(180deg, #ffb600, #ff7a00);
+  border-radius: 3px;
+  transition: height 0.15s ease;
+}
+
+.sidebar-dots {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.sidebar-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+  transition: background 0.3s, transform 0.3s;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-dot.active {
+  background: #ffb600;
+  transform: scale(1.5);
+  box-shadow: 0 0 6px #ffb60099;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 14px;
+  right: 0;
+  z-index: 100;
+  padding: 0 40px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+}
+
+.navbar-inner {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: "Intel One Mono", monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffb600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 15px;
+  color: #333;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: #ffb600;
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover, .nav-link.active { color: #111; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main-content {
+  margin-left: 14px;
+  padding-top: 80px;
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 48px;
+}
+
+.section-header {
+  margin-bottom: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffb600;
+  background: rgba(255, 182, 0, 0.12);
+  border: 1px solid rgba(255, 182, 0, 0.3);
+  border-radius: 20px;
+  padding: 3px 12px;
+}
+
+.section-title {
+  font-family: "Intel One Mono", monospace;
+  font-size: 40px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.15;
+  flex: 1;
+}
+
+.section-more {
+  font-size: 14px;
+  color: #ffb600;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.section-more:hover { opacity: 0.75; }
+
+/* ============================================================
+   GLASS CARDS
+   ============================================================ */
+.glass-card {
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(20px) saturate(120%);
+  -webkit-backdrop-filter: blur(20px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.10), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero-section { padding-top: 60px; padding-bottom: 40px; }
+
+.hero-card {
+  padding: 80px 80px 72px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(90deg, #ffb600, #ff7a00);
+  border-radius: 20px;
+  padding: 4px 14px;
+  margin-bottom: 20px;
+}
+
+.hero-title {
+  font-family: "Intel One Mono", monospace;
+  font-size: 88px;
+  font-weight: 400;
+  color: #ffb600;
+  margin: 0 0 24px;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-shadow: 0 4px 32px rgba(255,182,0,0.25);
+}
+
+.hero-desc {
+  font-size: 20px;
+  line-height: 1.7;
+  color: #555;
+  max-width: 720px;
+  margin: 0 auto 40px;
+}
+
+/* Download button */
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, #ffb600 0%, #ff7a00 100%);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 700;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 8px 32px rgba(255,182,0,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  letter-spacing: 0.02em;
+}
+
+.btn-download:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px rgba(255,182,0,0.45);
+}
+
+.btn-icon { font-size: 18px; }
+
+/* ============================================================
+   CARDS ROW
+   ============================================================ */
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.mini-card {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.mini-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+.mini-card-icon { font-size: 36px; }
+
+.mini-card-title {
+  font-family: "Intel One Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.mini-card-desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* ============================================================
+   SERVER CARDS
+   ============================================================ */
+.server-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 28px;
+}
+
+.server-card--full {
+  padding: 28px 36px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.server-status {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.server-status.online {
+  background: #2ecc71;
+  box-shadow: 0 0 8px #2ecc7199;
+}
+
+.server-status.offline {
+  background: #ccc;
+}
+
+.server-info { flex: 1; }
+
+.server-name {
+  font-family: "Intel One Mono", monospace;
+  font-size: 18px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 3px;
+}
+
+.server-ip {
+  font-size: 13px;
+  color: #888;
+  margin: 0;
+  font-family: monospace;
+}
+
+.server-players {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.players-count {
+  font-family: "Intel One Mono", monospace;
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffb600;
+  line-height: 1;
+}
+
+.players-label {
+  font-size: 11px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.servers-full-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ============================================================
+   ABOUT GRID
+   ============================================================ */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.about-card {
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.about-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.13), inset 0 1px 0 rgba(255,255,255,0.55);
+}
+
+.about-card--wide {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 28px;
+  padding: 36px 40px;
+}
+
+.about-icon { font-size: 36px; flex-shrink: 0; }
+
+.about-card-title {
+  font-family: "Intel One Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.about-card-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #666;
+  margin: 0;
+}
+
+/* ============================================================
+   NEWS
+   ============================================================ */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.news-item {
+  padding: 36px 40px;
+  transition: transform 0.2s;
+}
+
+.news-item:hover { transform: translateX(4px); }
+
+.news-date {
+  font-size: 12px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.news-title {
+  font-family: "Intel One Mono", monospace;
+  font-size: 22px;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 10px;
+}
+
+.news-desc {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #666;
+  margin: 0;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 -2px 24px rgba(0,0,0,0.06);
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-copy { font-size: 14px; color: #888; }
+.footer-email { font-size: 16px; color: #444; font-weight: 500; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .cards-row, .about-grid { grid-template-columns: 1fr; }
+  .about-card--wide { flex-direction: column; }
+  .hero-title { font-size: 52px; }
+  .section-title { font-size: 28px; }
+  .hero-card { padding: 48px 32px; }
+  .nav-links { gap: 16px; }
+  .section { padding: 60px 24px; }
+}
