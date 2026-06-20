@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>404 — Страница не найдена</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="styleguide.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
+
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('404-page-views');
+  </script>
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">A NOT TEAM</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="launcher.html" class="nav-link">Лаунчер</a>
+        <a href="library.html" class="nav-link">Библиотека</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="servers.html" class="nav-link">Сервера</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <section class="section page-404">
+      <div class="glass-card" style="padding:72px 48px;">
+        <p class="page-404-title">404</p>
+        <p class="page-404-text">Страница не найдена. Возможно, ссылка устарела или вы ошиблись при вводе адреса.</p>
+        <a href="index.html" class="btn-ghost">Вернуться на главную</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2024 – 2026 A NOT TEAM</span>
+        <span class="footer-email">support@anotteam.com</span>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

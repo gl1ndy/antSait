@@ -9,7 +9,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-neutral">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
 
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('servers-page-views');
+  </script>
   <div class="sidebar-strip">
     <div class="sidebar-progress"></div>
     <div class="sidebar-dots">
@@ -50,29 +83,29 @@
         <div class="glass-card server-card server-card--full">
           <div class="server-status online"></div>
           <div class="server-info">
-            <h3 class="server-name">Survival</h3>
-            <p class="server-ip">play.anotteam.com</p>
-            <p class="mini-card-desc">Выживание с авторскими механиками, событиями и активным сообществом.</p>
+            <h3 class="server-name">Anarchy Excent</h3>
+            <p class="server-ip">execlipt.anotteam.com</p>
+            <p class="mini-card-desc">Данный сервер был в прошлом простым сервером для друзей Execlipt ютубера но теперь любой может зайти и что либо привнести что то свое правила все условные и державтся на морали игроков но запрет на любой из видов читов остается ну хотя врядтли вы сможете так как вы обязаны играть через наш лаунчер!</p>
           </div>
-          <div class="server-players"><span class="players-count">12</span><span class="players-label">онлайн</span></div>
+          <div class="server-players1"><span class="players-count1">0</span><span class="players-label1">онлайн</span></div>
         </div>
         <div class="glass-card server-card server-card--full">
-          <div class="server-status online"></div>
+          <div class="server-status offline"></div>
           <div class="server-info">
             <h3 class="server-name">Creative</h3>
             <p class="server-ip">creative.anotteam.com</p>
-            <p class="mini-card-desc">Свободное строительство, ворлдгард-регионы и выделенные участки.</p>
+            <p class="mini-card-desc">Свободное строительство, ворлдгард-регионы и выделенные участки. Скоро будет!</p>
           </div>
-          <div class="server-players"><span class="players-count">5</span><span class="players-label">онлайн</span></div>
+          <div class="server-players2"><span class="players-count2"></span><span class="players-label2">Скоро</span></div>
         </div>
         <div class="glass-card server-card server-card--full">
           <div class="server-status offline"></div>
           <div class="server-info">
             <h3 class="server-name">Mini-games</h3>
             <p class="server-ip">mini.anotteam.com</p>
-            <p class="mini-card-desc">Мини-игры на основе авторских карт студии. Скоро открытие!</p>
+            <p class="mini-card-desc">Мини-игры на основе авторских карт студии. Скоро будет!</p>
           </div>
-          <div class="server-players"><span class="players-count">—</span><span class="players-label">скоро</span></div>
+          <div class="server-players3"><span class="players-count3"></span><span class="players-label3">скоро</span></div>
         </div>
       </div>
     </section>

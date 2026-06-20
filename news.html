@@ -9,7 +9,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-neutral">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
 
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('news-page-views');
+  </script>
   <div class="sidebar-strip">
     <div class="sidebar-progress"></div>
     <div class="sidebar-dots">
@@ -48,19 +81,14 @@
       </div>
       <div class="news-list">
         <div class="glass-card news-item">
-          <div class="news-date">23 апреля 2026</div>
-          <h3 class="news-title">Обновление лаунчера до версии 2.0</h3>
-          <p class="news-desc">Полный редизайн интерфейса, поддержка Fabric 0.15 и автоматическая синхронизация модпаков студии.</p>
+          <div class="news-date">26 апреля 2026</div>
+          <h3 class="news-title">На сайт выложенна карта Murder 1.19.2</h3>
+          <p class="news-desc">Мы рады сообщить, что на наш сайт выложена карта Murder версии 1.19.2. Проверьте её и оставьте свой отзыв!</p>
         </div>
         <div class="glass-card news-item">
-          <div class="news-date">10 апреля 2026</div>
-          <h3 class="news-title">Открытие сервера Survival</h3>
-          <p class="news-desc">Запустили новый сервер выживания на A NOT REALMS. Авторские механики, уникальный мир и события каждую неделю.</p>
-        </div>
-        <div class="glass-card news-item">
-          <div class="news-date">1 марта 2026</div>
-          <h3 class="news-title">Новая карта: Вулканический архипелаг</h3>
-          <p class="news-desc">Выпустили карту для выживания с авторскими боссами, паркуром и уникальной системой крафта.</p>
+          <div class="news-date">25 апреля 2026</div>
+          <h3 class="news-title">Создан сайт для студии ANT</h3>
+          <p class="news-desc">Теперь наша студия имеет свой собственный сайт где вы можете скачать карты, моды, лаунчер и остальной контент A NOT TEAM!</p>
         </div>
       </div>
     </section>

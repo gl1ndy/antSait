@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <title>Murder Map — A NOT TEAM</title>
+  <link rel="stylesheet" href="globals.css">
+  <link rel="stylesheet" href="styleguide.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
+
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('murder-map-views');
+  </script>
+  <div class="sidebar-strip">
+    <div class="sidebar-progress"></div>
+    <div class="sidebar-dots">
+      <div class="sidebar-dot active"></div>
+      <div class="sidebar-dot"></div>
+      <div class="sidebar-dot"></div>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <div class="nav-logo">A NOT TEAM</div>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Главная</a>
+        <a href="launcher.html" class="nav-link">Лаунчер</a>
+        <a href="library.html" class="nav-link active">Библиотека</a>
+        <a href="news.html" class="nav-link">Новости</a>
+        <a href="servers.html" class="nav-link">Сервера</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <!-- HERO WITH GALLERY AND INFO -->
+    <section class="section" id="map-hero" style="padding: 60px 48px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;">
+        
+        <!-- LEFT: GALLERY -->
+        <div class="grid-gallery-container">
+          <div class="gallery-main" id="galleryMain">
+            <!-- Заполняется через JavaScript -->
+          </div>
+          
+          <div class="gallery-thumbs">
+            <img src="img/murder-map/murder-img.jpg" alt="Локация 1" class="thumb active" onclick="goToSlide(0)">
+            <img src="img/murder-map/murder-img2.jpg" alt="Локация 2" class="thumb" onclick="goToSlide(1)">
+            <img src="img/murder-map/murder-img4.jpg" alt="Локация 4" class="thumb" onclick="goToSlide(2)">
+            <img src="img/murder-map/murder-img5.jpg" alt="Локация 5" class="thumb" onclick="goToSlide(3)">
+            <img src="img/murder-map/murder-img6.jpg" alt="Локация 6" class="thumb" onclick="goToSlide(4)">
+            <img src="img/murder-map/murder-img7.jpg" alt="Локация 7" class="thumb" onclick="goToSlide(5)">
+            <img src="img/murder-map/murder-img8.jpg" alt="Локация 8" class="thumb" onclick="goToSlide(6)">
+            <img src="img/murder-map/murder-img9.jpg" alt="Локация 9" class="thumb" onclick="goToSlide(7)">
+            <img src="map.jpg" alt="Трейлер Murder Map" class="thumb" onclick="goToSlide(8)">
+          </div>
+        </div>
+
+        <!-- RIGHT: INFO PANEL -->
+        <div class="glass-card" style="padding: 32px; position: sticky; top: 100px;">
+          <h1 style="font-family: 'Intel One Mono', monospace; font-size: 36px; margin: 0 0 8px; color: #1a1a1a;">Murder Map</h1>
+          <p style="font-size: 14px; color: #666; margin: 0 0 24px;">Мистическое расследование в атмосфере страха и тайн</p>
+          
+          <div style="margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,182,0,0.15);">
+            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #ffb600; font-weight: 700; display: block; margin-bottom: 8px;">О карте</span>
+            <p style="font-size: 14px; color: #444; line-height: 1.7; margin: 0;">Ты отправляешься в заброшенный город. Совершено убийство — найти преступника как детектив или остаться незамеченным. Собирай улики, общайся с NPC и раскрывай правду.</p>
+          </div>
+          
+          <div style="margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,182,0,0.15);">
+            <span style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: #ffb600; font-weight: 700; display: block; margin-bottom: 8px;">Геймплей</span>
+            <p style="font-size: 14px; color: #444; line-height: 1.7; margin: 0;">Несколько концовок, система времени с таймером, динамичный сюжет. Каждое прохождение уникально благодаря вариантам развития событий.</p>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 24px;">
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffb600; font-weight: 700; display: block; margin-bottom: 4px;">Версия</span>
+              <span style="font-size: 14px; font-weight: 600; color: #1a1a1a;">1.19.2+</span>
+            </div>
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffb600; font-weight: 700; display: block; margin-bottom: 4px;">Режим</span>
+              <span style="font-size: 14px; font-weight: 600; color: #1a1a1a;">2+ игроков</span>
+            </div>
+            <div>
+              <span style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #ffb600; font-weight: 700; display: block; margin-bottom: 4px;">Размер</span>
+              <span style="font-size: 14px; font-weight: 600; color: #1a1a1a;">15 МБ</span>
+            </div>
+          </div>
+          
+          <a href="launcher.html" class="btn-primary-map" style="display: block; text-align: center; width: 100%;">Скачать карту</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESCRIPTION -->
+    <section class="section" id="map-desc">
+      <div class="section-header">
+        <span class="section-tag">Описание</span>
+        <h2 class="section-title">Что тебя ждёт</h2>
+      </div>
+      <div class="glass-card" style="padding: 40px;">
+        <p style="font-size: 16px; line-height: 1.8; color: #444; margin: 0;">
+          Ты отправляешься в заброшенный город, окутанный мраком и тайнами. Совершено убийство, и ты либо детектив, ищущий преступника, либо один из подозреваемых. Собирай улики, общайся с NPC, разгадывай головоломки и раскрывай тайны старого города.
+        </p>
+        <p style="font-size: 16px; line-height: 1.8; color: #444; margin: 20px 0 0;">
+          Каждое решение влияет на ход событий. Таймер добавляет адреналина — полиция приедет вовремя, и преступника должны задержать. Несколько концовок и режимов игры гарантируют, что каждое прохождение будет уникальным.
+        </p>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD SECTION -->
+    <section class="section" id="map-download">
+      <div class="section-header">
+        <span class="section-tag">Получить</span>
+        <h2 class="section-title">Скачивание</h2>
+      </div>
+      <div class="glass-card" style="padding: 48px; text-align: center;">
+        <p style="font-size: 16px; color: #555; margin: 0 0 28px;">
+          Установи карту через лаунчер или скачай напрямую. Оба способа просты и быстры.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+          <a href="launcher.html" class="btn-primary">Через лаунчер</a>
+          <a href="index.html" class="btn-secondary">Прямая ссылка</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPDATES -->
+    <section class="section" id="map-updates">
+      <div class="section-header">
+        <span class="section-tag">Новости</span>
+        <h2 class="section-title">Последние обновления</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+        <div class="glass-card" style="padding: 32px;">
+          <h3 style="margin: 0 0 12px; font-family: 'Intel One Mono', monospace; font-size: 20px; color: #1a1a1a;">Второй акт</h3>
+          <p style="margin: 0; color: #666; line-height: 1.7;">Добавлены новые локации, дополнительные улики и три возможных финала. Игра стала ещё более интерактивной и непредсказуемой.</p>
+        </div>
+        <div class="glass-card" style="padding: 32px;">
+          <h3 style="margin: 0 0 12px; font-family: 'Intel One Mono', monospace; font-size: 20px; color: #1a1a1a;">Оптимизация</h3>
+          <p style="margin: 0; color: #666; line-height: 1.7;">Ускорен запуск, улучшена производительность мира и исправлены баги в диалогах NPC. Карта стала ещё стабильнее.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span class="footer-copy">© 2024 – 2026 A NOT TEAM</span>
+        <span class="footer-email">support@anotteam.com</span>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    let currentSlide = 0;
+
+    // Массив слайдов — должен точно соответствовать порядку миниатюр!
+    const slides = [
+      { type: 'image', src: 'img/murder-map/murder-img.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img2.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img4.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img5.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img6.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img7.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img8.jpg' },
+      { type: 'image', src: 'img/murder-map/murder-img9.jpg' },
+      { 
+        type: 'youtube', 
+        src: 'https://www.youtube.com/embed/n0qt4BWVPGU',
+        title: 'Трейлер Murder Map'
+      }
+    ];
+
+    function goToSlide(n) {
+      currentSlide = n;
+      updateGallery();
+    }
+
+    function updateGallery() {
+      const mainContainer = document.getElementById('galleryMain');
+      const slide = slides[currentSlide];
+
+      // Очищаем контейнер
+      mainContainer.innerHTML = '';
+
+      if (slide.type === 'youtube') {
+        // YouTube видео
+        const iframe = document.createElement('iframe');
+        iframe.src = slide.src;
+        iframe.title = slide.title;
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.border = 'none';
+        iframe.style.borderRadius = '12px';
+        iframe.allowFullscreen = true;
+        iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        
+        mainContainer.appendChild(iframe);
+      } 
+      else {
+        // Изображение
+        const img = document.createElement('img');
+        img.src = slide.src;
+        img.alt = `Локация ${currentSlide + 1}`;
+        img.className = 'gallery-main-img';
+        mainContainer.appendChild(img);
+      }
+
+      // Обновляем активную миниатюру
+      const thumbnails = document.querySelectorAll('.thumb');
+      thumbnails.forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === currentSlide);
+      });
+    }
+
+    // Логика скролла и боковой панели
+    const sections = document.querySelectorAll('.section');
+    const dots = document.querySelectorAll('.sidebar-dot');
+    const progress = document.querySelector('.sidebar-progress');
+
+    function onScroll() {
+      // Прогресс-бар
+      if (progress) {
+        const scrollHeight = document.body.scrollHeight - window.innerHeight;
+        const scrolled = window.scrollY / Math.max(1, scrollHeight);
+        progress.style.height = (scrolled * 100) + '%';
+      }
+
+      // Активная точка в сайдбаре
+      let current = 0;
+      sections.forEach((sec, i) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= window.innerHeight * 0.55) {
+          current = i;
+        }
+      });
+
+      if (dots.length > 0) {
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+    }
+
+    // Инициализация при загрузке страницы
+    window.addEventListener('DOMContentLoaded', () => {
+      updateGallery();
+      onScroll();
+    });
+
+    // Обновление при скролле
+    window.addEventListener('scroll', onScroll, { passive: true });
+  </script>
+</body>
+</html>

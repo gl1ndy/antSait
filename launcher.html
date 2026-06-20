@@ -9,7 +9,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-neutral">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
 
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('launcher-page-views');
+  </script>
   <div class="sidebar-strip">
     <div class="sidebar-progress"></div>
     <div class="sidebar-dots">
@@ -38,9 +71,9 @@
         <div class="hero-badge">v2.0</div>
         <h1 class="hero-title" style="font-size:64px">Лаунчер</h1>
         <p class="hero-desc">Запускай Minecraft с уже установленными модами и картами от студии. Никакой ручной настройки — всё готово.</p>
-        <a href="#" class="btn-download">
+        <a href="#" onclick="trackEvent('download-launcher'); return true;" class="btn-download">
           <span class="btn-icon">⬇</span>
-          В разработке
+          В разработкеq
         </a>
       </div>
     </section>

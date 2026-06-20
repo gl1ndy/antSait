@@ -9,7 +9,40 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gradient">
+  <script>
+    // 1. Константы конфигурации
+    const TRACKER_URL = "https://api.anotteam.com";
 
+    // 2. Функция трекинга
+    async function trackEvent(itemId) {
+        try {
+            console.log(`Отправка события для: ${itemId}...`);
+            
+            const response = await fetch(`${TRACKER_URL}/track/${itemId}`, {
+                method: 'POST',
+                mode: 'cors', 
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                // Если API ожидает тело запроса, можно добавить:
+                // body: JSON.stringify({ timestamp: Date.now() })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Ошибка сервера: ${response.status}`);
+            }
+
+            const data = await response.json();
+            console.log("Трекер успешно сработал:", data);
+        } catch (error) {
+            console.error("Ошибка трекера:", error);
+        }
+    }
+
+    // 3. Вызов функции при загрузке страницы
+    // Убран "return true", который вызывал SyntaxError
+    trackEvent('library-page-views');
+  </script>
   <div class="sidebar-strip">
     <div class="sidebar-progress"></div>
     <div class="sidebar-dots">
@@ -48,9 +81,13 @@
         <h2 class="section-title">Авторские карты</h2>
       </div>
       <div class="cards-row">
-        <div class="glass-card mini-card"><div class="mini-card-icon">🗺️</div><h3 class="mini-card-title">Карта #1</h3><p class="mini-card-desc">Описание карты. Уникальная история и механики.</p></div>
-        <div class="glass-card mini-card"><div class="mini-card-icon">🏔️</div><h3 class="mini-card-title">Карта #2</h3><p class="mini-card-desc">Приключение на выживание с авторскими боссами.</p></div>
-        <div class="glass-card mini-card"><div class="mini-card-icon">🌋</div><h3 class="mini-card-title">Карта #3</h3><p class="mini-card-desc">Паркур и головоломки от команды A NOT TEAM.</p></div>
+        <a href="murder-map.html"
+          class="glass-card mini-card card-link">
+          <img src="map.jpg" alt="Murder Map" class="Cardimg">
+          <h3 class="mini-card-title">Murder Map</h3>
+          <p class="mini-card-desc">Вы отправитесь на заброшенные локации в роли детектива и будете искать улики, чтобы по окончанию таймера полиция могла задержать убийцу.</p>
+          <span class="mini-card-action">Смотреть карту и фотогалерею →</span>
+        </a>
       </div>
     </section>
 
@@ -60,10 +97,8 @@
         <h2 class="section-title">Модификации</h2>
       </div>
       <div class="cards-row">
-        <div class="glass-card mini-card"><div class="mini-card-icon">⚙️</div><h3 class="mini-card-title">Мод #1</h3><p class="mini-card-desc">Новые механики и предметы для ванильного Minecraft.</p></div>
-        <div class="glass-card mini-card"><div class="mini-card-icon">📦</div><h3 class="mini-card-title">Датапак #1</h3><p class="mini-card-desc">Датапак без Forge и Fabric — чистый ванилла с новыми механиками.</p></div>
-        <div class="glass-card mini-card"><div class="mini-card-icon">🔧</div><h3 class="mini-card-title">Датапак #2</h3><p class="mini-card-desc">Улучшения рецептов крафта и QoL изменения.</p></div>
-      </div>
+        <!-- <div class="glass-card mini-card"><div class="mini-card-icon">⚙️</div><h3 class="mini-card-title">Мод #1</h3><p class="mini-card-desc">Новые механики и предметы для ванильного Minecraft.</p></div> -->
+     </div>
     </section>
 
     <footer class="footer">
